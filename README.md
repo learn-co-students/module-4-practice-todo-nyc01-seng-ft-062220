@@ -6,7 +6,7 @@ The `tasks` are hardcoded into the state of `App` and the `categories` are impor
 
 You will need to add something else to the state of `App` to track which category has been selected.
 
-All the css is included in `src/App.css`, just make sure your classes are correct (but don't worry about the styling too much!).
+Task the css is included in `src/App.css`, just make sure your classes are correct (but don't worry about the styling too much!).
 
 ## Strech goals
 
