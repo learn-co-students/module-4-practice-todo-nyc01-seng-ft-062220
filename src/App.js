@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import { CATEGORIES } from './data'
+import Categories from "./Categories";
+import Tasks from "./Tasks";
 
 class App extends React.Component {
 
@@ -34,13 +35,22 @@ class App extends React.Component {
         text: 'Tidy house',
         category: 'Misc'
       }
-    ]
+    ],
+    filter: ''
+  }
+
+  onCLickHandler = (obj) => {
+    this.setState({
+      filter: obj
+    })
   }
 
   render() {
     return (
       <div className="App">
         <h2>My tasks</h2>
+        <Categories onCLickHandler={this.onCLickHandler} />
+        <Tasks data={this.state.tasks} filter={this.state.filter}/>
       </div>
     );
   }
