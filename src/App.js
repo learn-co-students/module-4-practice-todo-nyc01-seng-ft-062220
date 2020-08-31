@@ -29,12 +29,3 @@ class App extends React.Component {
 
 
 export default App;
-
-const options = {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'},
-  },
-  // body: JSON.stringify(jsObject)
-}

@@ -52,23 +52,17 @@ class TaskContainer extends React.Component {
         this.setState({tasks: newTaskArr});
     }
 
-    renderTasks = () => {
-        let renderTasksArr 
-        if (this.props.selectedCategory === "All") {
-            renderTasksArr = this.generateAllTasks();
-        } else {
-            renderTasksArr = this.filteredByCategory();
-        }
-        return renderTasksArr;
-    }
-
-    generateAllTasks = () => {
-        return this.state.tasks.map((taskObj => <Task task={taskObj} deleteHandler={this.deleteTask}/>))
+    renderAllTasks = () => {
+      return this.state.tasks.map((taskObj => <Task task={taskObj} deleteHandler={this.deleteTask}/>))
     }
 
     filteredByCategory = () => {
-        console.log(this.state.tasks)
-        return this.state.tasks.filter((taskObj => taskObj.category === this.props.selectedCategory))
+      return this.state.tasks.filter((taskObj => taskObj.category === this.props.selectedCategory))
+
+    }
+
+    renderFilteredTasks = () => {
+      return this.filteredByCategory().map((taskObj => <Task task={taskObj} deleteHandler={this.deleteTask}/>))
     }
 
     render() {
@@ -76,7 +70,7 @@ class TaskContainer extends React.Component {
             <div className="tasks">
                 <h5>Tasks</h5>
                 <NewTaskForm submitHandler={this.createTask} />
-                {this.props.selectedCategory === "All" ? this.generateAllTasks() : this.filteredByCategory()}
+                {this.props.selectedCategory === "All" ? this.renderAllTasks() : this.renderFilteredTasks()}
             </div>
         );
     };
