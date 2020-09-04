@@ -11,6 +11,9 @@ class Task extends React.Component {
                 <div class="text">
                     {this.props.text}
                 </div>
+                <button class="delete"  onClick={(task)=> this.props.deleteTask(this.props.task)}>
+                    X
+                </button>
             </div>
         )
     }

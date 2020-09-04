@@ -5,6 +5,7 @@ import App from './App';
 import Navbar from './Components/Navbar'
 import Login from './Components/Login'
 import About from './Components/About'
+import TaskForm from './Components/TaskForm'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 
@@ -15,6 +16,7 @@ ReactDOM.render((
         <Route exact path="/" component={App} />
         <Route exact path="/Login" component={Login} />
         <Route exact path="/About" component={About} />
+        <Route exact path="/Add" component={TaskForm}/>
         </div>
 
     </Router>),
