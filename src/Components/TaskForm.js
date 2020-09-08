@@ -29,7 +29,7 @@ class TaskFormm extends React.Component {
         return arr.map(category => <option key={category}>{category}</option>)
     }
     render() {
-        console.log(this.selectCategory())
+        // console.log(this.selectCategory())
         return(
             <form className="new-task-form" onSubmit={e => this.submitHandler(e)}>
                 <input onChange={e => this.changeHandler(e)} name="task" value={this.state.task} placeholder="Enter a New Task" type="text" />

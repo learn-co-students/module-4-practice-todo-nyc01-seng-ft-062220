@@ -1,5 +1,6 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
  
 const link = {
   width: '100px',
@@ -12,19 +13,20 @@ const link = {
  
 class Navbar extends React.Component {
   render() {
+    console.log(this.props.user)
     return (
+      <React.Fragment>
+        {this.props.user ? 
       <div>
         <NavLink
           to="/"
-          /* set exact so it knows to only set activeStyle when route is deeply equal to link */
           exact
-          /* add styling to Navlink */
           style={link}
-          /* add prop for activeStyle */
           activeStyle={{
             background: 'darkblue'
           }}
-        >Home</NavLink>
+          >Home</NavLink>
+
         <NavLink
           to="/about"
           exact
@@ -32,7 +34,8 @@ class Navbar extends React.Component {
           activeStyle={{
             background: 'darkblue'
           }}
-        >About</NavLink>
+          >About</NavLink>
+        
         <NavLink
           to="/add"
           exact
@@ -40,7 +43,8 @@ class Navbar extends React.Component {
           activeStyle={{
             background: 'darkblue'
           }}
-        >Add Task</NavLink>
+          >Calendar</NavLink>
+        
         <NavLink
           to="/login"
           exact
@@ -48,10 +52,15 @@ class Navbar extends React.Component {
           activeStyle={{
             background: 'darkblue'
           }}
-        >Login</NavLink>
+          >Login</NavLink>
+      
       </div>
+      :
+        <Redirect to="/Login"/>
+        }
+    </React.Fragment>
     )
   }
 }
  
-export default Navbar;
+export default Navbar
