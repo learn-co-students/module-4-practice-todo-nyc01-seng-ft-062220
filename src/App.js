@@ -14,7 +14,24 @@ class App extends React.Component {
     user: null
   }
 
+  componentDidMount() {
+    let token = localStorage.getItem("token")
+    if (token) {
+    fetch('http://localhost:3000/api/v1/profile', {
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then(response => response.json())
+    .then(data => this.setState({user: data.user}), ()=> this.props.history.push("/"))
+  } else {
+    this.props.history.push("/login")
+  }
+}
+
+  
+
   signupHandler = (userObj) => {
+    console.log("signing up", userObj)
     fetch('http://localhost:3000/api/v1/users', {
       method: 'POST',
       headers: {
@@ -38,8 +55,12 @@ class App extends React.Component {
       body: JSON.stringify({ user: userObj})
     })
     .then(response => response.json())
-    .then(data => this.setState({user: data.user}, ()=> this.props.history.push("/")))
-    //navbar does not render when signed in only shows task list
+    .then(data => {
+
+      console.log(data.jwt)
+      localStorage.setItem("token", data.jwt)
+      this.setState({user: data.user}, ()=> this.props.history.push("/"))
+    })
   }
 
   render() {
