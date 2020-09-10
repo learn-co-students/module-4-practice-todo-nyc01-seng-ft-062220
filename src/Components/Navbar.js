@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import { Redirect } from 'react-router-dom'
+// import { Redirect } from 'react-router-dom'
  
 const link = {
   width: '100px',
@@ -13,10 +13,8 @@ const link = {
  
 class Navbar extends React.Component {
   render() {
-    console.log(this.props.user)
     return (
       <React.Fragment>
-        {this.props.user ? 
       <div>
         <NavLink
           to="/"
@@ -45,19 +43,20 @@ class Navbar extends React.Component {
           }}
           >Calendar</NavLink>
         
+        {this.props.user ? 
+        <button onClick={this.props.clickHandler}>Log out</button>
+        :
         <NavLink
-          to="/login"
-          exact
-          style={link}
-          activeStyle={{
-            background: 'darkblue'
-          }}
-          >Login</NavLink>
+        to="/login"
+        exact
+        style={link}
+        activeStyle={{
+          background: 'darkblue'
+        }}
+        >Login</NavLink>
+      }
       
       </div>
-      :
-        <Redirect to="/Login"/>
-        }
     </React.Fragment>
     )
   }

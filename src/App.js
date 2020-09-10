@@ -5,13 +5,14 @@ import Todo from './Todo'
 import { Route, Switch, withRouter } from 'react-router-dom'
 import Login from './Components/Login'
 import About from './Components/About'
+import Please from './Components/Please'
 import Navbar from './Components/Navbar'
 
 
 class App extends React.Component {
 
   state= {
-    user: null
+    user: false
   }
 
   componentDidMount() {
@@ -28,10 +29,7 @@ class App extends React.Component {
   }
 }
 
-  
-
   signupHandler = (userObj) => {
-    console.log("signing up", userObj)
     fetch('http://localhost:3000/api/v1/users', {
       method: 'POST',
       headers: {
@@ -45,7 +43,6 @@ class App extends React.Component {
   }
 
   loginHandler = (userObj) => {
-    console.log("logging in", userObj)
     fetch('http://localhost:3000/api/v1/login', {
       method: 'POST',
       headers: {
@@ -56,11 +53,15 @@ class App extends React.Component {
     })
     .then(response => response.json())
     .then(data => {
-
-      console.log(data.jwt)
       localStorage.setItem("token", data.jwt)
       this.setState({user: data.user}, ()=> this.props.history.push("/"))
     })
+  }
+
+  logoutHandler = () => {
+    localStorage.removeItem('token')
+    this.props.history.push("/login")
+    this.setState({ user: false})
   }
 
   render() {
@@ -69,10 +70,15 @@ class App extends React.Component {
       <Switch>
         <React.Fragment>
           <Navbar clickHandler={this.logoutHandler} user={this.state.user} />
+          { this.state.user !== false && 
           <Route exact path="/" component={Todo} />
+          }
+          { this.state.user === false && 
+          <Route exact path="/" component={Please} />
+          }
           <Route exact path='/signup' render={() => <Signup submitHandler={this.signupHandler}/>} />
           <Route exact path='/login' render={() => <Login submitHandler={this.loginHandler}/>} />
-          <Route exact path='/about' render={() => <About />} />
+          <Route exact path='/about' render={() => <About user={this.state.user} />} />
         </React.Fragment>
       </Switch>
     )

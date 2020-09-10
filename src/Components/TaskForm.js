@@ -1,12 +1,29 @@
 import React from 'react'
-import { CATEGORIES } from '../data'
-
 
 class TaskFormm extends React.Component {
-
+    
     state = {
+        
         task: '',
-        category: CATEGORIES[1]
+        categoryArray: [],
+        category: 'All'
+    }
+
+    componentDidMount() {
+        this.mounted = true 
+        if (this.mounted === true) {
+            this.fetchCategories()
+        }
+    }
+
+    componentWillUnmount() {
+        this.mounted = false 
+    }
+
+    fetchCategories = () => {
+        fetch('http://localhost:3000/categories')
+        .then(response => response.json())
+        .then(categoryArr => this.setState({categoryArray: categoryArr}))
     }
 
     submitHandler = (e) => {
@@ -25,15 +42,14 @@ class TaskFormm extends React.Component {
     }
 
     selectCategory = () => {
-        let arr = CATEGORIES.filter(category => category!=='All')
-        return arr.map(category => <option key={category}>{category}</option>)
+        let origArr = this.state.categoryArray.map((categoryObj) => categoryObj.name)
+        return origArr.map((category, index) => <option key={index} value={category}>{category}</option>).slice(0, 5)
     }
     render() {
-        // console.log(this.selectCategory())
         return(
             <form className="new-task-form" onSubmit={e => this.submitHandler(e)}>
                 <input onChange={e => this.changeHandler(e)} name="task" value={this.state.task} placeholder="Enter a New Task" type="text" />
-                <select onChange={e => this.changeHandler(e)} name="category" value={this.state.category}>
+                <select  onChange={e => this.changeHandler(e)} name="category" value={this.state.category}>
                     {this.selectCategory()}
                     </select>
                     <input type="submit" />
