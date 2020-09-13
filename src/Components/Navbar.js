@@ -33,15 +33,15 @@ class Navbar extends React.Component {
             background: 'darkblue'
           }}
           >About</NavLink>
-        
+
         <NavLink
-          to="/add"
-          exact
-          style={link}
-          activeStyle={{
-            background: 'darkblue'
-          }}
-          >Calendar</NavLink>
+        to="/edit"
+        exact
+        style={link}
+        activeStyle={{
+          background: 'darkblue'
+        }}
+        >Customize List</NavLink>
         
         {this.props.user ? 
         <button onClick={this.props.clickHandler}>Log out</button>
@@ -55,6 +55,7 @@ class Navbar extends React.Component {
         }}
         >Login</NavLink>
       }
+
       
       </div>
     </React.Fragment>

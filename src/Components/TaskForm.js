@@ -9,12 +9,14 @@ class TaskFormm extends React.Component {
         category: 'All'
     }
 
+
     componentDidMount() {
         this.mounted = true 
         if (this.mounted === true) {
             this.fetchCategories()
         }
     }
+
 
     componentWillUnmount() {
         this.mounted = false 
@@ -35,15 +37,15 @@ class TaskFormm extends React.Component {
          this.props.addTask(inputTask)
     }
 
-    changeHandler = (e) => {
+    changeHandler = (e, map) => {
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         })
     }
 
     selectCategory = () => {
         let origArr = this.state.categoryArray.map((categoryObj) => categoryObj.name)
-        return origArr.map((category, index) => <option key={index} value={category}>{category}</option>).slice(0, 5)
+        return origArr.map((category, index) => <option key={index} value={category}>{category}</option>).slice(0, 4)
     }
     render() {
         return(

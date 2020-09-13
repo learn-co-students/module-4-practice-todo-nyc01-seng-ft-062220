@@ -7,20 +7,36 @@ class Todo extends React.Component {
 
   state = {
     selectedCategory: "All", 
-    user: true,   
-    tasks: []
+    tasks: [],
+    user: false
   }
 
   componentDidMount() {
     this.mounted = true 
     if (this.mounted === true) {
       this.fetchTasks() 
+      let mounted = true
+    if (mounted === true) {
+
+      let token = localStorage.getItem("token")
+      if (token !== null || undefined) {
+        fetch('http://localhost:3000/api/v1/profile', {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then(response => response.json())
+        .then(data => this.setState({user: data.user}), ()=> this.props.history.push("/"))
+      } else {
+        this.props.history.push("/login")
+      }
+    }
     }
   }
 
   componentWillUnmount() {
     this.mounted = false 
   }
+
 
   fetchTasks = () => {
     fetch('http://localhost:3000/tasks')
@@ -42,7 +58,6 @@ class Todo extends React.Component {
   }
 
   addTask = (taskObj) => {
-    console.log(taskObj)
     fetch('http://localhost:3000/tasks', {
 
       method: 'POST',
